@@ -4,6 +4,7 @@ import { AuthService } from "./auth.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import database from "src/database/connection";
 import { User } from "src/database/entity/user";
+import { GoogleStrategy } from "./googleauth";
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { User } from "src/database/entity/user";
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule {}
