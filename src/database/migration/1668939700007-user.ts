@@ -24,9 +24,24 @@ export class user1668939700007 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "picture",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "accessToken",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "refreshToken",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: "createdAt",
             type: "date",
-            isNullable: false,
+            default: `CURRENT_TIMESTAMP`,
           },
         ],
       })

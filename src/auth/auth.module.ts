@@ -5,11 +5,13 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import database from "src/database/connection";
 import { User } from "src/database/entity/user";
 import { GoogleStrategy } from "./googleauth";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(database.options),
     TypeOrmModule.forFeature([User]),
+    JwtModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, GoogleStrategy],

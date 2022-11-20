@@ -12,5 +12,14 @@ export class User {
   email: string;
 
   @Column()
+  picture: string;
+
+  @Column()
+  accessToken: string;
+
+  @Column()
+  refreshToken: string;
+
+  @Column()
   createdAt: Date;
 }

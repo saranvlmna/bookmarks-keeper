@@ -26,7 +26,7 @@ export class bookmark1668939709495 implements MigrationInterface {
           {
             name: "createdAt",
             type: "date",
-            isNullable: false,
+            default: `CURRENT_TIMESTAMP`,
           },
         ],
       })

@@ -1,18 +1,29 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "@nestjs/passport";
-
+import { StatusCodes } from "http-status-codes";
 @Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
   @UseGuards(AuthGuard("google"))
-  async googleAuth(@Req() req) {}
+  async googleAuth(@Req() req: any) {}
 
   @Get("callback")
   @UseGuards(AuthGuard("google"))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req);
+  async googleAuthRedirect(@Req() req: any, @Res() res: any) {
+    const user = await this.authService.findOrCreate(req);
+    const refreshtoken = await this.authService.generateAuthToken(user);
+    const accessToken = await this.authService.generateRefreshToken(
+      user.userId
+    );
+    return res.status(StatusCodes.OK).json({
+      message: "User login successfully",
+      data: {
+        accessToken,
+        refreshtoken,
+      },
+    });
   }
 }
